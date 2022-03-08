@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -48,13 +50,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   initFirebase() async {
-    channel = const AndroidNotificationChannel(
-      'high_importance_channel', // id
-      'High Importance Notifications', // title
-      description:
-          'This channel is used for important notifications.', // description
-      importance: Importance.high,
-    );
+    if (Platform.isAndroid) {
+      channel = const AndroidNotificationChannel(
+        'high_importance_channel', // id
+        'High Importance Notifications', // title
+        description:
+            'This channel is used for important notifications.', // description
+        importance: Importance.high,
+      );
+    }
 
     FirebaseMessaging.instance.getInitialMessage().then(
           (RemoteMessage? message) {},
@@ -64,19 +68,34 @@ class _HomePageState extends State<HomePage> {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
 
-      flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        notification!.title,
-        notification.body,
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            channel!.id,
-            channel!.name,
-            channelDescription: channel!.description,
-            icon: 'launch_background',
+      if (Platform.isAndroid) {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification!.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel!.id,
+              channel!.name,
+              channelDescription: channel!.description,
+              icon: 'launch_background',
+            ),
           ),
-        ),
-      );
+        );
+      } else if (Platform.isIOS) {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification!.title,
+          notification.body,
+          NotificationDetails(
+            iOS: IOSNotificationDetails(
+              presentAlert: true,
+              presentBadge: true,
+              presentSound: true,
+            ),
+          ),
+        );
+      }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
