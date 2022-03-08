@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "775110895315",
+    "firebase_url": "https://kaspin-test-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "kaspin-test",
+    "storage_bucket": "kaspin-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775110895315:android:796731d244e8a06ef39626",
+        "android_client_info": {
+          "package_name": "com.example.folarium_test_apps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775110895315-3hjtgcac0bsql6n5fl198ak5ih07mhsi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy0hCgWaQS5hAB2Ekwn3QOavQxQJnkPzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775110895315-3hjtgcac0bsql6n5fl198ak5ih07mhsi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
